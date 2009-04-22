@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby -rubygems 
+require "appscript"
+Appscript::app('Finder').selection.set(STDIN.readlines.collect do |line|
+	MacTypes::FileURL.path(line.strip).to_alias
+end)
