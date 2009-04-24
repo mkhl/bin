@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for app; do
+    echo $(perl -MMac::Processes -e "printf '%s', LSFindApplicationForInfo(undef, undef, '$app')")
+done
