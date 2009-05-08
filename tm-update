@@ -16,5 +16,5 @@ if [[ ! -d "$TM_DIR" ]]; then
 fi
 
 cd "$TM_DIR"
-sudo svn update
+svn update
 osascript -e 'tell app "TextMate" to reload bundles'
