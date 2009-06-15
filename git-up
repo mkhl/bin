@@ -1,0 +1,7 @@
+#!/bin/bash
+git push "${1:-origin}" "$(git symbolic-ref HEAD 2>/dev/null|cut -d/ -f3)"
+ 
+# Put this file somewhere in your PATH, call it 'git-up', make it +x,
+# and then you can call "git up" to push to origin, or "git up foo"
+# to push to 'foo'
+# Source: http://gist.github.com/129570
