@@ -1,5 +1,27 @@
-#!/usr/bin/env ruby -rubygems 
-require "appscript"
-Appscript::app('Finder').selection.set(STDIN.readlines.collect do |line|
-	MacTypes::FileURL.path(line.strip).to_alias
-end)
+#!/usr/bin/env python
+
+'''Select the specified files in Finder.app.
+
+Specify files as arguments or pass them, one per line, via $stdin.
+
+Based on: http://gist.github.com/141808
+Reimplemented in Python because, on my machine, it's twice as fast.
+'''
+
+import sys
+import appscript, mactypes
+
+def finder():
+    return appscript.app('Finder')
+
+def filelist():
+    return sys.argv[1:] or sys.stdin.readlines()
+
+def aliases(paths):
+    return [mactypes.Alias(path.strip()) for path in paths]
+
+def select_files(app):
+    app.selection.set(aliases(filelist()))
+
+if __name__ == '__main__':
+    select_files(finder())
