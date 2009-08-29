@@ -5,9 +5,10 @@ import os
 def main():
     paths = {}
     for component in os.getenv('PATH', []).split(':'):
-        for executable in os.listdir(component):
-            paths.setdefault(executable, [])
-            paths[executable].append(os.path.realpath(component))
+        if os.path.exists(component):
+            for executable in os.listdir(component):
+                paths.setdefault(executable, [])
+                paths[executable].append(os.path.realpath(component))
     for executable in sorted(paths.keys()):
         if len(paths[executable]) > 1:
             print "%s has %d entries:" % (executable, len(paths[executable]))
