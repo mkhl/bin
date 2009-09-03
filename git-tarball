@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Create tarballs tagged with the current revision
+for component; do
+    (cd "$(dirname "${component}")"
+    file="$(basename "${component}")"
+    base="${file%%.*}"
+    tar cjf "$HOME/Desktop/${base}-$(git rev-parse --short head).tar.bz2" "${file}")
+done
