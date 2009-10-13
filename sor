@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby -wKU
+
+def valid?(file, tests)
+  ENV['file'] = file
+  tests.each do |test|
+    # #eof? is used to touch the IO
+    # commands like echo(1) start crying otherwise
+    IO.popen(test) { |io| io.eof? }
+    return true  if $?.success?
+  end
+  false
+end
+
+def convert(test)
+  # test arrives frozen, so no #<< for us
+  test += ' $file'  unless test['$']
+  test
+end
+
+def run(args, io)
+  tests = args.map { |a| convert(a) }
+  io.find_all { |file| valid?(file, tests) }
+end
+
+if __FILE__ == $PROGRAM_NAME
+  puts run(ARGV, $stdin)
+end
