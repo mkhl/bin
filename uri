@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby -wKU
+
+require 'uri'
+
+def usage(msg= nil)
+  name = File.basename($0)
+  puts "#{name}: #{msg}"  if msg
+  puts "Usage: #{name} METHOD"
+  exit 255
+end
+
+def meth(args)
+  usage  unless args.length == 1
+  symb = args.first.to_sym
+  begin
+    return URI.send(:method, symb)
+  rescue NameError
+    usage("undefined method: `#{symb}'")
+  end
+end
+
+if __FILE__ == $PROGRAM_NAME
+  func = meth(ARGV)
+  STDIN.each { |line| puts func[line.chomp] }
+end
