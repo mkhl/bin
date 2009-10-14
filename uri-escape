@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby -p -ruri -wKU
+
+$_ = URI.escape $_
