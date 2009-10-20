@@ -17,4 +17,4 @@ fi
 
 cd "$TM_DIR"
 svn update
-osascript -e 'tell app "TextMate" to reload bundles'
+# osascript -e 'tell app "TextMate" to reload bundles'
