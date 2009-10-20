@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-def repo_paths():
-    import os, mercurial.hg, mercurial.ui
-    repo = mercurial.hg.repository(mercurial.ui.ui(), os.path.curdir)
+def repo_paths(path):
+    import mercurial.hg, mercurial.ui
+    repo = mercurial.hg.repository(mercurial.ui.ui(), path)
     return repo.ui.configitems('paths')
 
 def bitb_paths(paths):
@@ -19,11 +19,16 @@ def open(paths):
     else:
         raise Exception('BitBucket path not found')
 
-def main():
-    try:
-        open(bitb_paths(repo_paths()))
-    except Exception as err:
-        print 'abort:', err
+def main(paths):
+    for path in paths:
+        try:
+            open(bitb_paths(repo_paths(path)))
+        except Exception as err:
+            print 'abort:', err
 
 if __name__ == '__main__':
-    main()
+    import sys, os
+    args = sys.argv[1:]
+    if not args:
+        args = [os.path.curdir]
+    main(args)
