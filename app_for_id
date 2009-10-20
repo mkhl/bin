@@ -1,5 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env perl
+use Mac::Processes;
 
-for app; do
-    perl -MMac::Processes -e "printf '%s', LSFindApplicationForInfo(undef, '$app')" && echo
-done
+map(print(LSFindApplicationForInfo(undef, $_) . "\n"), @ARGV);
