@@ -3,10 +3,7 @@
 def valid?(file, tests)
   ENV['file'] = file
   tests.each do |test|
-    # #eof? is used to touch the IO
-    # commands like echo(1) start crying otherwise
-    IO.popen(test) { |io| io.eof? }
-    return true  if $?.success?
+    return true  if system(test)
   end
   false
 end
