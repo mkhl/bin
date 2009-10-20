@@ -16,9 +16,9 @@ end
 
 def run(args, io)
   tests = args.map { |a| convert(a) }
-  io.find_all { |file| valid?(file, tests) }
+  io.each { |file| puts file  if valid?(file, tests) }
 end
 
 if __FILE__ == $PROGRAM_NAME
-  puts run(ARGV, $stdin)
+  run(ARGV, $stdin)
 end
