@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby -wKU
 
 def valid?(file, tests)
-  ENV['file'] = file.chomp
+  ENV['file'] = file
   tests.each do |test|
     return true  if system(test)
   end
@@ -16,7 +16,7 @@ end
 
 def run(args, io)
   tests = args.map { |a| convert(a) }
-  io.each { |file| puts file  if valid?(file, tests) }
+  io.each { |file| puts file  if valid?(file.chomp, tests) }
 end
 
 if __FILE__ == $PROGRAM_NAME
