@@ -2,10 +2,4 @@
 
 require 'rdoc/markup/to_html'
 
-def format(input)
-  return RDoc::Markup::ToHtml.new.convert(input)
-end
-
-if __FILE__ == $PROGRAM_NAME
-  print format(ARGF.read)
-end
+puts RDoc::Markup::ToHtml.new.convert(ARGF.read)

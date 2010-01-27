@@ -19,6 +19,4 @@ def run(args, io)
   io.each { |file| puts file  if valid?(file.chomp, tests) }
 end
 
-if __FILE__ == $PROGRAM_NAME
-  run(ARGV, $stdin)
-end
+run(ARGV, $stdin)

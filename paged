@@ -29,11 +29,5 @@ def run_pager
   exec pager rescue exec "/bin/sh", "-c", pager
 end
 
-def run
-  run_pager
-  exec(*ARGV)
-end
-
-if __FILE__ == $PROGRAM_NAME
-  run
-end
+run_pager
+exec(*ARGV)

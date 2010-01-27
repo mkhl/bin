@@ -3,7 +3,7 @@
 require 'uri'
 
 def usage(msg= nil)
-  name = File.basename($0)
+  name = File.basename($PROGRAM_NAME)
   puts "#{name}: #{msg}"  if msg
   puts "Usage: #{name} METHOD"
   exit 255
@@ -19,7 +19,5 @@ def meth(args)
   end
 end
 
-if __FILE__ == $PROGRAM_NAME
-  func = meth(ARGV)
-  STDIN.each { |line| puts func[line.chomp] }
-end
+func = meth(ARGV)
+$stdin.each { |line| puts func[line.chomp] }

@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby -wKU
 
 pathmap = Hash.new { |hash, key| hash[key] = [] }
+
 ENV['PATH'].split(':').each do |path|
   if File.directory?(path)
     Dir.foreach(path) do |file|
@@ -8,6 +9,7 @@ ENV['PATH'].split(':').each do |path|
     end
   end
 end
+
 pathmap.sort.each do |name, dirs|
   if dirs.length > 1
     puts "#{name} has #{dirs.length} entries:"

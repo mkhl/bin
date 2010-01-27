@@ -1,42 +1,27 @@
-#!/usr/bin/env ruby -KU
+#!/usr/bin/env ruby -wKU -rubygems
 
 require 'open-uri'
 
-def read(uri)
-  open(uri) do |io|
-    io.read
-  end
-end
-
 def read_public(name)
-  read(URI("http://pastie.org/#{name}.txt"))
+  URI("http://pastie.org/#{name}.txt").read
 end
 
 def read_private(url)
-  require 'rubygems'
-  require 'hpricot'
-  read(URI(Hpricot(open(url)).at('a.utility')['href']))
+  require 'nokogiri'
+  html = Nokogiri::HTML(open(url))
+  url = html.at('a.utility')['href']
+  URI(url).read
 end
 
-def main(arg)
-  pattern = /^\d+$/
-  return read_public(arg) if pattern =~ arg
-  url = URI(arg)
-  name = File.basename(url.path)
-  return read_public(name) if pattern =~ name
-  read_private(url)
+def fetch(arg)
+  public_id = /^\d+$/
+  base = File.basename(arg)
+  return read_public(base)  if public_id =~ base
+  read_private(URI(arg))
 end
 
-def usage
-  return <<-USAGE
-Usage: #{File.basename $PROGRAM_NAME} PASTE_ID | PASTE_URL
-USAGE
+unless ARGV.length == 1
+  puts "Usage: #{File.basename $PROGRAM_NAME} PASTE_ID | PASTE_URL"
+  exit 2
 end
-
-if __FILE__ == $PROGRAM_NAME
-  unless ARGV.length == 1
-    puts usage
-    exit 2
-  end
-  puts main(ARGV.first)
-end
+puts fetch(ARGV.first)
