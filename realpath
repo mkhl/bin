@@ -1,2 +1,13 @@
-#!/usr/bin/env ruby -rpathname
-ARGV.each { |a| puts Pathname.new(a).realpath }
+#!/usr/bin/env ruby -wKU
+
+require 'pathname'
+
+args = ARGV.empty? ? ARGF : ARGV
+
+args.each { |a|
+  begin
+    puts Pathname.new(a.chomp).realpath
+  rescue StandardError => err
+    puts "#{File.basename $PROGRAM_NAME}: #{err}"
+  end
+}
