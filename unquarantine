@@ -1,5 +1,9 @@
 #!/bin/bash
 
-for file; do
-	xattr -d "com.apple.quarantine" "$file"
+for path; do
+    if [[ -d "$path" ]]; then
+	xattr -rd "com.apple.quarantine" "$path"
+    else
+	xattr -d "com.apple.quarantine" "$path"
+    fi
 done
