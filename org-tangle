@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby -wKU
+#
+# tangle files with `org-babel'
+#
+
+def usage
+  $stderr.puts "Usage: #{File.basename($PROGRAM_NAME)} FILE ..."
+  exit 255
+end
+
+usage  if ARGV.empty?
+
+expr = <<-"EMACS"
+(progn
+  (require 'org)(require 'org-exp)(require 'org-babel)
+  (dolist (file '(#{ARGV.map { |e| %Q["#{e}"] }.join(' ')}))
+    (org-babel-tangle-file (expand-file-name file "#{Dir.pwd}"))))
+EMACS
+
+system('emacsclient', '--eval', expr)
