@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby -wKU -rubygems
-
-require 'launchy'
-
-Launchy::open("http://github.com/#{ARGV.join('/')}")
