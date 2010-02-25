@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby -wKU
+#
+# read "GNU texinfo manuals" with `info'
+#
+
+expr = %Q[(info "#{ARGV.join(' ')}")]
+system('emacsclient', '--no-wait', '--eval', expr)
