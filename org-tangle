@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby -wKU
 #
-# tangle files with `org-babel'
+# Tangle Org files with `org-babel'.
 #
 
 def usage
@@ -10,7 +10,7 @@ end
 
 usage  if ARGV.empty?
 
-expr = <<-"EMACS"
+expr = <<-EMACS
 (progn
   (require 'org)(require 'org-exp)(require 'org-babel)
   (dolist (file '(#{ARGV.map { |e| %Q["#{e}"] }.join(' ')}))
