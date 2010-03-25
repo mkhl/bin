@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for key in PATH MANPATH INFOPATH; do
+    value="$(defaults read "$HOME/.MacOSX/environment" "$key")"
+    if [[ "$?" -eq "0" ]]; then
+        eval "export $key='$value'"
+    fi
+done
+
+case $# in
+    [1-9]*)
+        exec "$@"
+        ;;
+esac
