@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for script; do
+    touch "$script"
+    chmod a+x "$script"
+done
