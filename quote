@@ -1,0 +1,11 @@
+#!/bin/bash
+
+case $# in
+    [1-9]*)
+        echo "Usage: $(basename "$0")" 1>&2
+        exit 255
+        ;;
+    *)
+        sed -E -e 's,([^[:alnum:]_./-]),\\\1,g'
+        ;;
+esac
