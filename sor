@@ -1,22 +1,13 @@
 #!/usr/bin/env ruby -wKU
 
-def valid?(file, tests)
+def passes?(file, tests)
   ENV['file'] = file
-  tests.each do |test|
-    return true  if system(test)
-  end
-  false
+  tests.any? { |test| system(amend(test)) }
 end
 
-def convert(test)
-  # test arrives frozen, so no #<< for us
-  test += ' "$file"'  unless test['$']
-  test
+def amend(test)
+  return test  if test['$file']
+  %Q[#{test} "$file"]
 end
 
-def run(args, io)
-  tests = args.map { |a| convert(a) }
-  io.each { |file| puts file  if valid?(file.chomp, tests) }
-end
-
-run(ARGV, $stdin)
+$stdin.each { |file| puts file  if passes?(file.chomp, ARGV) }
