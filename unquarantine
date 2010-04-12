@@ -2,8 +2,8 @@
 
 for path; do
     if [[ -d "$path" ]]; then
-	xattr -rd "com.apple.quarantine" "$path"
+	/usr/bin/xattr -rd "com.apple.quarantine" "$path"
     else
-	xattr -d "com.apple.quarantine" "$path"
+	/usr/bin/xattr -d "com.apple.quarantine" "$path"
     fi
 done
