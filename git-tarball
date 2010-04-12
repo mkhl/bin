@@ -5,7 +5,7 @@ for component; do
     cd "$(dirname "${component}")"
     file="$(basename "${component}")"
     base="${file%%.*}"
-    srev="$(git rev-parse --short head)"
+    srev="$(git rev-parse --short HEAD)"
     name="${HOME}/Desktop/${base}-${srev}.tar.bz2"
     tar cjf "${name}" "${file}"
     cd "${OLDPWD}"
