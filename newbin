@@ -1,6 +1,7 @@
 #!/bin/bash
 
 for script; do
-    touch "$script"
-    chmod a+x "$script"
+	touch "$script"
+	chmod a+x "$script"
+	"${VISUAL:-${EDITOR:-vi}}" "$script"
 done
