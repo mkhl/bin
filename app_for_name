@@ -1,4 +1,0 @@
-#!/usr/bin/env perl
-use Mac::Processes;
-
-map(print(LSFindApplicationForInfo(undef, undef, $_) . "\n"), @ARGV);

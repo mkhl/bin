@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+from LaunchServices import LSFindApplicationForInfo, kLSUnknownCreator
+
+def find_app_by_id(id):
+    return LSFindApplicationForInfo(kLSUnknownCreator, id, None, None, None)
+
+def find_app_by_name(name):
+    return LSFindApplicationForInfo(kLSUnknownCreator, None, name, None, None)
+
+def find_app(app):
+    ok, ref, url = find_app_by_id(app)
+    if ok != 0:
+        ok, ref, url = find_app_by_name(app)
+    if ok != 0:
+        ok, ref, url = find_app_by_name(app + '.app')
+    if ok != 0:
+        return None
+    return ref.as_pathname()
+
+def main(args):
+    for app in args:
+        path = find_app(app.strip())
+        if path is not None:
+            print path
+
+if __name__ == '__main__':
+    import sys
+    args = sys.argv[1:]
+    if not args:
+        args = sys.stdin
+    main(args)
