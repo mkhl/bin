@@ -1,0 +1,28 @@
+#!/bin/bash
+
+self () {
+	local SELF="`basename -- "$0"`"
+	case "$SELF" in
+	browser)
+		echo "${BROWSER:-safari}"
+		;;
+	*)
+		echo "$SELF"
+		;;
+	esac
+}
+
+usage () {
+	echo "Usage: `self` URL ..." >&2
+	exit 255
+}
+
+if [[ $# -eq 0 ]]; then
+	if test -t 0; then
+		usage
+	else
+		open -a "`self`" "`to_tmp`"
+	fi
+else
+	open -a "`self`" "$@"
+fi
