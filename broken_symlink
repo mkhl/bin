@@ -1,3 +1,3 @@
 #!/bin/bash
 
-test -L "$@" -a ! -e "$@"
+test -L "$*" -a ! -e "$*"
