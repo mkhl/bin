@@ -22,4 +22,4 @@ emacs_path () {
 	echo "$bin_path"
 }
 
-echo "`emacs_path`" "$@"
+exec "`emacs_path`" "$@"
