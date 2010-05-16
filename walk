@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "pathname"
+
+PWD = "."
+$max_depth = nil
+$quote_paths = false
+$show_hidden = false
+
+def pwd?(path)
+  path.to_s == PWD
+end
+
+def hidden?(path)
+  return false  if $show_hidden
+  return false  if pwd? path
+  path.basename.to_s[0] == ?.
+end
+
+def too_deep?(path, base)
+  return false  if $max_depth.nil?
+  subpath = path.relative_path_from(base)
+  depth = subpath.to_s.split(File::Separator).length
+  depth = 0  if pwd? subpath
+  depth >= $max_depth
+end
+
+def quoted(path)
+  path.to_s.gsub(%r[([^\w./-])], '\\\\\1')
+end
+
+def print(path)
+  path = quoted(path)  if $quote_paths
+  puts path
+end
+
+def walk(base)
+  base.find { |path|
+    Find.prune  if hidden? path
+    print path  unless pwd? path
+    Find.prune  if too_deep? path, base
+  }
+end
+
+def parse_args
+  OptionParser.new do |opts|
+    opts.on("-a", "--all", "display `hidden' files") { $show_hidden = true }
+    opts.on("-d", "--depth N", "descend at most N directory levels", Integer) { |d| $max_depth = d }
+    opts.on("-q", "--quote", "quote metacharacters in file names") { $quote_paths = true }
+  end.parse!
+end
+
+parse_args
+ARGV.replace [PWD]  if ARGV.empty?
+ARGV.each { |arg| walk Pathname.new(arg) }
