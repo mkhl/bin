@@ -6,7 +6,7 @@
 set -e
 
 if ! git rev-parse --git-dir >/dev/null; then
-    exit $?
+	exit $?
 fi
 
 branch="$(git symbolic-ref HEAD 2>/dev/null|cut -d/ -f3)"

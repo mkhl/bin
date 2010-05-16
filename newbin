@@ -5,5 +5,5 @@ set -e
 for script; do
 	touch "$script"
 	chmod a+x "$script"
-	"${EDITOR:-vi}" "$script"
+	${EDITOR:-vi} "$script"
 done
