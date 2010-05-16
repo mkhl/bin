@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Create tarballs tagged with the current revision
 for component; do
     cd "$(dirname -- "${component}")"
