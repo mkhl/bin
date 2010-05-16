@@ -1,0 +1,5 @@
+#!/bin/bash
+
+TMPFILE="$(mktemp -t to_tmp)"
+cat > "$TMPFILE"
+echo "$TMPFILE"
