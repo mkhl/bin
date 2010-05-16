@@ -10,5 +10,5 @@ fi
 branch="$(git symbolic-ref HEAD 2>/dev/null|cut -d/ -f3)"
 remote="${1:-origin/master}"
 
-git config "branch.$branch.remote" "$(dirname "$remote")"
-git config "branch.$branch.merge" "refs/heads/$(basename "$remote")"
+git config "branch.$branch.remote" "$(dirname -- "$remote")"
+git config "branch.$branch.merge" "refs/heads/$(basename -- "$remote")"

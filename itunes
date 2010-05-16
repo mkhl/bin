@@ -18,7 +18,7 @@ showHelp () {
     echo "-----------------------------";
     echo "iTunes Command Line Interface";
     echo "-----------------------------";
-    echo "Usage: `basename $0` <option>";
+    echo "Usage: `basename -- $0` <option>";
     echo;
     echo "Options:";
     echo " status   = Shows iTunes' status, current artist and track.";
