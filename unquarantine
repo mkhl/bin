@@ -1,9 +1,11 @@
 #!/bin/bash
 
 for path; do
-    if [[ -d "$path" ]]; then
-	/usr/bin/xattr -rd "com.apple.quarantine" "$path"
-    else
-	/usr/bin/xattr -d "com.apple.quarantine" "$path"
-    fi
+	if [[ -e "$path" ]]; then
+		opts="-d"
+		if [[ -d "$path" ]]; then
+			opts="-rd"
+		fi
+		/usr/bin/xattr "$opts" "com.apple.quarantine" "$path"
+	fi
 done
