@@ -1,0 +1,2 @@
+#!/bin/bash
+exec each_line sed "$@"

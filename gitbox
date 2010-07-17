@@ -1,0 +1,14 @@
+#!/bin/bash
+
+gitbox () {
+	open -a Gitbox "$@"
+}
+
+case $# in
+[1-9]*)
+	gitbox "$@"
+	;;
+*)
+	gitbox "$PWD"
+	;;
+esac
