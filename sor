@@ -2,12 +2,18 @@
 
 def passes?(file, tests)
   ENV['file'] = file
-  tests.any? { |test| system(amend(test)) }
+  tests.any? { |test| system(convert(test)) }
 end
 
-def amend(test)
-  return test  if test['$file']
-  %Q[#{test} "$file"]
+def convert(test)
+  case test
+  when /\$file/
+    test
+  when /^-[bcdefghkprsuwxLOGS]$/
+    %Q[test #{test} "$file"]
+  else
+    %Q[#{test} "$file"]
+  end
 end
 
 $stdin.each { |file| puts file  if passes?(file.chomp, ARGV) }
