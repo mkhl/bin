@@ -1,0 +1,16 @@
+#!/bin/bash
+
+session="$*"
+if [[ -n "$session" ]]; then
+	if tmux has -t "$session"; then
+		exec tmux attach -t "$session"
+	else
+		exec tmux new -s "$session"
+	fi
+else
+	if tmux has; then
+		exec tmux attach
+	else
+		exec tmux new
+	fi
+fi
