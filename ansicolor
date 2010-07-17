@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+# Generate ANSI escape sequences.
+# Usage: ansicolor ATTR ...
+#        ansicolor ATTR ... -- STRING ...
+
+begin
+  require 'term/ansicolor'
+rescue LoadError
+  require 'rubygems'
+  require 'term/ansicolor'
+end
+
+def run(attrs, echos = nil)
+  begin
+    out = attrs.collect { |a| Term::ANSIColor.send a.to_sym }
+    out << echos.join(" ") << Term::ANSIColor.clear << "\n" if echos
+    print out
+  rescue NoMethodError => err
+    puts "undefined attribute: #{err.name}"
+  end
+end
+
+idx = ARGV.index '--'
+if idx
+  ARGV.delete_at idx
+  run(ARGV[0...idx], ARGV[idx..-1])
+else
+  run(ARGV.to_a)
+end
