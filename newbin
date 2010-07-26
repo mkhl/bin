@@ -2,8 +2,11 @@
 
 set -e
 
-for script; do
-	touch "$script"
-	chmod a+x "$script"
+script="$*"
+touch "$script"
+chmod a+x "$script"
+if test -t 0; then
 	${EDITOR:-vi} "$script"
-done
+else
+	cat >| "$script"
+fi
