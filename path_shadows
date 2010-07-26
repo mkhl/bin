@@ -11,6 +11,7 @@ ENV['PATH'].split(':').each do |path|
 end
 
 pathmap.sort.each do |name, dirs|
+  dirs.uniq!
   if dirs.length > 1
     puts "#{name} has #{dirs.length} entries:"
     dirs.each do |dir|
