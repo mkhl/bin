@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for proc; do
+	gdb --pid $proc --batch --command=/dev/stdin <<GDB
+p (char)[[NSBundle bundleWithPath:@"/Library/Frameworks/FScript.framework"] load]
+p (void)[FScriptMenuItem insertInMainMenu]
+GDB
+done
