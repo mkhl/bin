@@ -22,6 +22,6 @@ end
 
 unless ARGV.length == 1
   puts "Usage: #{File.basename $PROGRAM_NAME} PASTE_ID | PASTE_URL"
-  exit 2
+  exit 255
 end
 puts fetch(ARGV.first)

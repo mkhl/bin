@@ -17,7 +17,7 @@ def run(attrs, echos = nil)
     out << echos.join(" ") << Term::ANSIColor.clear << "\n" if echos
     print out
   rescue NoMethodError => err
-    puts "undefined attribute: #{err.name}"
+    puts "#{File.basename($PROGRAM_NAME)}: undefined attribute '#{err.name}'"
   end
 end
 
