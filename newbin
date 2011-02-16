@@ -6,7 +6,7 @@ script="$*"
 touch "$script"
 chmod a+x "$script"
 if test -t 0; then
-	${EDITOR:-vi} "$script"
+	"${EDITOR:-vi}" "$script"
 else
 	cat >| "$script"
 fi
