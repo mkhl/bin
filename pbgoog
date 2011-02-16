@@ -1,0 +1,2 @@
+#!/bin/bash
+web "https://www.google.com/search?q=`pbpaste | uri encode`"

@@ -1,0 +1,2 @@
+#!/bin/bash
+web "http://duckduckgo.com/?q=`pbpaste | uri encode`"
