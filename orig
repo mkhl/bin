@@ -5,7 +5,7 @@ if [ $# = 0 ] ; then
 	echo "Copy each FILE to FILE.orig"
 	exit 255
 else
-  for f in "$@" ; do
-    cp -p "$f" "$f.orig"
-  done
+	for file; do
+		cp -p "$file" "$file.orig"
+	done
 fi
