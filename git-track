@@ -5,9 +5,7 @@
 
 set -e
 
-if ! git rev-parse --git-dir >/dev/null; then
-	exit $?
-fi
+git rev-parse --git-dir >/dev/null
 
 branch="$(git symbolic-ref HEAD 2>/dev/null|cut -d/ -f3)"
 remote="${1:-origin/master}"

@@ -1,7 +1,8 @@
 #!/bin/bash
 
+SELF="`basename -- "$0"`"
+
 self () {
-	local SELF="`basename -- "$0"`"
 	case "$SELF" in
 	web|browser)
 		echo "${BROWSER:-safari}"
@@ -13,8 +14,8 @@ self () {
 }
 
 usage () {
-	echo "Usage: `basename -- "$0"` URL ..." >&2
-	echo "   or: HTML | `basename -- "$0"`" >&2
+	echo "Usage: $SELF URL ..." >&2
+	echo "   or: HTML | $SELF" >&2
 	exit 255
 }
 
