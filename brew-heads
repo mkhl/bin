@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for keg in /usr/local/Cellar/*; do
+	test -d "$keg/HEAD" && echo "$keg"
+done

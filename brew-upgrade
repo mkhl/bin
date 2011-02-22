@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+for keg; do
+	brew install "$keg"
+	brew cleanup "$keg"
+done

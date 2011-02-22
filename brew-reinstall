@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+for keg; do
+	test -d "$(brew --cellar "$keg")/HEAD" && HEAD=t
+	brew uninstall "$keg" || true
+	brew install "$keg" ${HEAD:+--HEAD}
+done
