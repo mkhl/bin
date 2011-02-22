@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# `git track origin/foobar` sets up the current branch to track origin/foobar
+# Based on <http://gist.github.com/142803>
+
+set -e
+
+git rev-parse --git-dir >/dev/null
+
+branch="$(git symbolic-ref HEAD 2>/dev/null|cut -d/ -f3)"
+remote="${1:-origin/master}"
+
+git config "branch.$branch.remote" "$(dirname -- "$remote")"
+git config "branch.$branch.merge" "refs/heads/$(basename -- "$remote")"

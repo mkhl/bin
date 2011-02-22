@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+# Create tarballs tagged with the current revision
+for component; do
+	cd "$(dirname -- "${component}")"
+	file="$(basename -- "${component}")"
+	base="${file%%.*}"
+	srev="$(git rev-parse --short HEAD)"
+	name="${HOME}/Desktop/${base}-${srev}.tar.bz2"
+	tar cjf "${name}" "${file}"
+	cd "${OLDPWD}"
+done

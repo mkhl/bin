@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby -wKU
+
+require "shellwords"
+
+return unless system "git rev-parse --git-dir >/dev/null 2>&1"
+
+topdir = `git rev-parse --show-cdup`.chomp
+Dir.chdir(topdir) unless topdir.empty?
+
+`git svn show-externals`.each_line do |line|
+  next if line =~ /^#/
+  args = Shellwords.shellwords line
+  next if args.empty?
+  subdir = ".#{args.shift}"
+  cmd = 'checkout'
+  if File.directory? subdir
+    args.pop
+    cmd = 'update'
+  end
+  args << subdir
+  system 'svn', cmd, *args
+end
