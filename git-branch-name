@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -e
-
-git symbolic-ref HEAD 2>/dev/null | cut -d/ -f3

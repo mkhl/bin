@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -e
-
-for repo; do
-	mr -p config "$repo" checkout | sh
-done
