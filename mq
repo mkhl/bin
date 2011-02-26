@@ -1,0 +1,13 @@
+#!/bin/sh
+# Usage: mq command [option...] [argument...]
+# Run Mercurial commands on the mq patch queue directory.
+
+set -e
+
+if [ $# -eq 0 ]; then
+	usage "$0"; exit
+fi
+
+command -v hg &>/dev/null
+
+hg -R "$(hg root)/.hg/patches" "$@"
