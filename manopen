@@ -1,0 +1,15 @@
+#!/bin/sh
+# Usage: manopen [<section>] <topic>...
+# Open man page for each <topic> in Preview (or any other PDF viewer).
+
+set -e
+
+if [ $# -eq 0 ]; then
+	usage "$0"; exit
+fi
+
+TMPFILE="$(mktemp -t manopen)"
+trap "rm -f '$TMPFILE'" EXIT INT HUP TERM
+
+man -t "$@" | pstopdf -i -o "$TMPFILE"
+cat "$TMPFILE" | open -f -a "${PDFOPEN:-Preview}"
