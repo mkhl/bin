@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby -w
+#
+# read "Un*x manual pages" with `man'
+#
+
+expr = %Q[(man "#{ARGV.join(' ')}")]
+system('emacsclient', '--no-wait', '--eval', expr)

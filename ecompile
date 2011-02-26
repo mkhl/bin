@@ -1,0 +1,20 @@
+#!/bin/bash
+
+emacs-compile () {
+	local emacs="${EMACS:-emacs}"
+	local opts=""
+	local dirs=""
+	local files=""
+	for arg; do
+		if [[ -d "$arg" ]]; then
+			dirs="$dirs -L $arg"
+		elif [[ -f "$arg" ]]; then
+			files="$files $arg"
+		else
+			opts="$opts $arg"
+		fi
+	done
+	$emacs --batch $dirs $opts -f batch-byte-compile $files
+}
+
+emacs-compile "$@"

@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby -w
+#
+# compare files with `ediff'
+#
+
+def usage
+  $stderr.puts "Usage: #{File.basename($PROGRAM_NAME)} FILE [FILE [FILE]]"
+  exit 255
+end
+
+def func(argc)
+  argc_map = { 1 => 'ediff-revision', 2 => 'ediff', 3 => 'ediff3' }
+  argc_map[argc] or usage
+end
+
+expr = "(#{func(ARGV.length)} #{ARGV.map { |e| %Q["#{e}"] }.join(' ')})"
+system('emacsclient', '--no-wait', '--eval', expr)
