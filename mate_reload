@@ -1,0 +1,7 @@
+#!/usr/bin/osascript
+# Usage: mate_reload
+# Reload TextMate Bundles from disk.
+
+tell application "TextMate"
+	reload bundles
+end tell
