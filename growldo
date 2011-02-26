@@ -1,0 +1,23 @@
+#!/bin/sh
+# Usage: growldo <command> [<argument>...]
+# Run <command> and report its exit status with growlnotify(1).
+
+if [ $# -eq 0 ]; then
+	usage "$0"; exit
+fi
+
+"$@"
+rc=$?
+if command -v growlnotify &>/dev/null; then
+	if [ $rc -eq 0 ]; then
+		mesg="Command succeeded"
+		icon="/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/AlertNoteIcon.icns"
+	else
+		mesg="Command failed with status $rc"
+		icon="/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/AlertStopIcon.icns"
+	fi
+	growlnotify --image "$icon" -m "$*" --title "$mesg"
+else
+	echo "$(basename -- "$0"): growlnotify: command not found" >&2
+fi
+exit $rc
