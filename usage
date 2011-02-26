@@ -1,0 +1,7 @@
+#!/bin/sh
+# Usage: usage [<script>...]
+# Display usage information for each <script>.
+# Without arguments, read script from stdin.
+
+sed -En '2,/^$/s/^#\/? //p' "$@" >&2
+exit 255
