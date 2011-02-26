@@ -14,13 +14,15 @@ def find_app_by_name(name):
 
 def find_app(app):
     ok, ref, url = find_app_by_id(app)
-    if ok != 0:
-        ok, ref, url = find_app_by_name(app)
-    if ok != 0:
-        ok, ref, url = find_app_by_name(app + '.app')
-    if ok != 0:
-        return None
-    return ref.as_pathname()
+    if ok == 0:
+        return ref.as_pathname()
+    ok, ref, url = find_app_by_name(app)
+    if ok == 0:
+        return ref.as_pathname()
+    ok, ref, url = find_app_by_name(app + '.app')
+    if ok == 0:
+        return ref.as_pathname()
+    return None
 
 def main(args):
     for app in args:
