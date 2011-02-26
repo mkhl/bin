@@ -1,30 +1,21 @@
 #!/bin/bash
 
-SELF="`basename -- "$0"`"
+set -e
 
 self () {
+	local SELF="$(basename -- "$0")"
 	case "$SELF" in
 	web|browser)
-		echo "${BROWSER:-safari}"
-		;;
-	*)
-		echo "$SELF"
+		SELF="${BROWSER:-safari}"
 		;;
 	esac
+	echo "$SELF"
 }
 
-usage () {
-	echo "Usage: $SELF URL ..." >&2
-	echo "   or: HTML | $SELF" >&2
-	exit 255
-}
-
-if [[ $# -eq 0 ]]; then
-	if test -t 0; then
-		usage
-	else
-		open -a "`self`" "`to_tmp`"
+if [ $# -eq 0 ]; then
+	if [ -t 0 ]; then
+		usage "$0"; exit
 	fi
-else
-	open -a "`self`" "$@"
+	set -- "$(to_tmp)"
 fi
+open -a "$(self)" "$@"
