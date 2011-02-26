@@ -1,0 +1,21 @@
+#!/usr/bin/osascript
+# Usage: large <text>...
+# Display <text> in large, friendly letters using Quick Search Box.
+
+on run(argv)
+	set _text to join of argv by " "
+	tell application "Quick Search Box"
+		show large type _text
+	end tell
+end run
+
+to join of aList by sep
+	local aString, delims
+	tell AppleScript
+		set delims to text item delimiters
+		set text item delimiters to sep
+		set aString to aList as string
+		set text item delimiters to delims
+	end tell
+	return aString
+end join
