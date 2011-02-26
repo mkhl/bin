@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+# Usage: which_app [<app>...]
+# Locate each OS X application using LaunchServices.
+# Applications can be specified by name or bundle identifier.
+# Without arguments, read applications from stdin.
 
 from LaunchServices import LSFindApplicationForInfo, kLSUnknownCreator
 

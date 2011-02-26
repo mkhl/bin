@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/sh
+# Usage: browser [<URL>...]
+# Open each <URL> in a web browser.
+# Without arguments, read HTML from stdin.
 
 set -e
 

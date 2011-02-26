@@ -1,2 +1,5 @@
-#!/bin/bash
-web "`pbpaste`"
+#!/bin/sh
+# Usage: pbweb
+# Open URL on the pasteboard in a web browser.
+
+web "$(pbpaste)"

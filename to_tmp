@@ -1,5 +1,13 @@
-#!/bin/bash
+#!/bin/sh
+# Usage: to_tmp
+# Write stdin to a tmpfile, then print its name on stdout.
+
+set -e
+
+if [ $# -ne 0 ]; then
+	usage "$0"; exit
+fi
 
 TMPFILE="$(mktemp -t to_tmp)"
-cat > "$TMPFILE"
+cat >| "$TMPFILE"
 echo "$TMPFILE"

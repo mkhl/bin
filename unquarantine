@@ -1,2 +1,11 @@
-#!/bin/bash
-/usr/bin/xattr -r -d com.apple.quarantine "$@"
+#!/bin/sh
+# Usage: unquarantine <file>...
+# Remove the "quarantine" extended attribute from each <file>.
+
+set -e
+
+if [ $# -eq 0 ]; then
+	usage "$0"; exit
+fi
+
+/usr/bin/xattr -d com.apple.quarantine "$@"

@@ -1,3 +1,11 @@
-#!/bin/bash
+#!/bin/sh
+# Usage: broken_symlink <file>
+# Test whether <file> is a broken symbolic link.
+
+set -e
+
+if [ $# -eq 0 ]; then
+	usage "$0"; exit
+fi
 
 test -L "$*" -a ! -e "$*"

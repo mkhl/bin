@@ -1,11 +1,13 @@
 #!/bin/sh
+# Usage: orig <file>...
+# Copy each <file> to <file>.orig.
 
-if [ $# = 0 ] ; then
-	echo "Usage: `basename -- "$0"` FILE ..." >&2
-	echo "Copy each FILE to FILE.orig"
-	exit 255
-else
-	for file; do
-		cp -p "$file" "$file.orig"
-	done
+set -e
+
+if [ $# -eq 0 ]; then
+	usage "$0"; exit
 fi
+
+for file; do
+	cp -p "$file" "$file.orig"
+done

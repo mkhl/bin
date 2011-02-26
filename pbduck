@@ -1,2 +1,5 @@
-#!/bin/bash
-web "http://duckduckgo.com/?q=`pbpaste | uri encode`"
+#!/bin/sh
+# Usage: pbduck
+# Search terms on the pasteboard with DuckDuckGo.
+
+web "http://duckduckgo.com/?q=$(pbpaste | uri encode)"

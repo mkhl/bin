@@ -1,4 +1,10 @@
-#!/bin/bash
+#!/bin/sh
+# Usage: each_line <command> [<argument>...]
+# Execute <command> for each line read from stdin.
+
+if [ $# -eq 0 ]; then
+	usage "$0"; exit
+fi
 
 while read line; do
 	"$@" "$line"

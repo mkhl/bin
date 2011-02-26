@@ -1,7 +1,11 @@
-#!/bin/bash
+#!/bin/sh
+# Usage: quote
+# Quote non-word characters on each line.
 
-if [[ $# -ne 0 ]]; then
-	echo "Usage: $(basename -- "$0")" >&2
-	exit 255
+set -e
+
+if [ $# -ne 0 ]; then
+	usage "$0"; exit
 fi
+
 sed -E -e 's,([^[:alnum:]_./-]),\\\1,g'

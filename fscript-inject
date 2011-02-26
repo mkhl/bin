@@ -1,4 +1,10 @@
-#!/bin/bash
+#!/bin/sh
+# Usage: fscript-inject <pid>...
+# Inject FScript into the applications corresponding to each <pid>.
+
+if [ $# -eq 0 ]; then
+	usage "$0"; exit
+fi
 
 for proc; do
 	gdb --pid $proc --batch --command=/dev/stdin <<GDB
