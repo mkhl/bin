@@ -1,0 +1,19 @@
+#!/bin/sh
+# Usage: sprunge [<file>...]
+# Paste each <file> to the pastebin at <http://sprunge.us>.
+# Print the resulting URLs on stdout.
+# Without arguments, read text from stdin.
+
+set -e
+
+if [ $# -eq 0 ]; then
+	if [ -t 0 ]; then
+		usage "$0"; exit
+	else
+		curl -F "content=<-" http://sprunge.us
+	fi
+else
+	for file; do
+		curl -F "content=<-" http://sprunge.us < "$file"
+	done
+fi

@@ -1,0 +1,19 @@
+#!/bin/sh
+# Usage: npaste [<file>...]
+# Paste each <file> to the pastebin at <http://npaste.de>.
+# Print the resulting URLs on stdout.
+# Without arguments, read text from stdin.
+
+set -e
+
+if [ $# -eq 0 ]; then
+	if [ -t 0 ]; then
+		usage "$0"; exit
+	else
+		curl -F "content=<-" http://npaste.de
+	fi
+else
+	for file; do
+		curl -F "content=<-" http://npaste.de < "$file"
+	done
+fi
