@@ -7,8 +7,8 @@ if [ $# -eq 0 ]; then
 fi
 
 for proc; do
-	gdb --pid $proc --batch --command=/dev/stdin <<GDB
-p (char)[[NSBundle bundleWithPath:@"/Library/Frameworks/FScript.framework"] load]
-p (void)[FScriptMenuItem insertInMainMenu]
-GDB
+	gdb --pid "$proc" --batch --nx --command=/dev/stdin <<-GDB
+		p (char)[[NSBundle bundleWithPath:@"/Library/Frameworks/FScript.framework"] load]
+		p (void)[FScriptMenuItem insertInMainMenu]
+	GDB
 done
